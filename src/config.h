@@ -1,0 +1,9 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define CAOS_TOTAL_INTERRUPTS 512
+
+#define KERN_CODE_SELECTOR 0x08
+#define KERN_DATA_SELECTOR 0x10
+
+#endif

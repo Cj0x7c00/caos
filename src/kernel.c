@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 #include <stddef.h> 
+#include "idt/idt.h"
+#include "io/io.h"
 
 
 uint16_t* video_mem = 0;
@@ -71,18 +73,18 @@ void print(const char * str)
 }
 
 
-
 void kernel_start()
 {
     // 0xB8000
 
     Term_Initialize();
 
-    print("hello, world!\ntest");
+    print("hello, world!");
 
-    while(1)
-    {
-        print("help!");
-    }
+    // init 
+    // interrupt desc table
+    idt_init();
+
+    enable_int();
 
 }

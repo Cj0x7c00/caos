@@ -3,7 +3,7 @@ COLOUR_RED=\033[0;31m
 COLOUR_BLUE=\033[0;34m
 END_COLOR=\033[0m
 
-FILES= ./build/kernel.asm.o ./build/kernel.o
+FILES= ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.asm.o ./build/idt/idt.o ./build/memory/memory.o ./build/io/io.asm.o
 
 INCLUDES = -I./src
 FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Werror -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc
@@ -38,6 +38,19 @@ start_no_launch: ./bin/boot.bin ./bin/kernel.bin
 ./build/kernel.o: ./src/kernel.c
 	i686-elf-gcc $(INCLUDES) $(FLAGS) -std=gnu99 -c ./src/kernel.c -o ./build/kernel.o
 
+./build/idt/idt.asm.o: ./src/idt/idt.asm
+	-nasm -f elf -g ./src/idt/idt.asm -o ./build/idt/idt.asm.o
+
+./build/idt/idt.o: ./src/idt/idt.c
+	i686-elf-gcc $(INCLUDES) -I./src/idt $(FLAGS) -std=gnu99 -c ./src/idt/idt.c -o ./build/idt/idt.o
+
+./build/memory/memory.o: ./src/memory/memory.c
+	i686-elf-gcc $(INCLUDES) -I./src/memory $(FLAGS) -std=gnu99 -c ./src/memory/memory.c -o ./build/memory/memory.o
+
+./build/io/io.asm.o: ./src/io/io.asm
+	-nasm -f elf -g ./src/io/io.asm -o ./build/io/io.asm.o
+
+
 Debug:
 	@make start_no_launch
 	gdb 
@@ -57,3 +70,4 @@ clean:
 	-rm -rf $(FILES)
 	-rm -rf build/kernelfull.o
 	-rm -rf build/boot.o
+	-rm -rf build/idt.o
