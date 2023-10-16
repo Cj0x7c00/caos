@@ -1,12 +1,11 @@
-#CAOS
+# CAOS
 
-Just a basic OS I'm making
+A very bare bones OS, using QEMU for emulation
 
-##Why?
+## Why?
+- becuse I wanted to
+- And I wanted to mess with low level C and asm
 
-Educate myself on low level computer concepts
-
-##What can it do?
-
-Write text out to the terminal...in color :)
-... thats literally it
+## what can it do?
+- write to the screen, in color too
+- thats it for now
