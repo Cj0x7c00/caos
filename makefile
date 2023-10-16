@@ -58,7 +58,8 @@ Debug:
 launch:
 	@echo "$(COLOUR_GREEN)[MAKEFILE]: Running QEMU$(END_COLOR)"
 	@echo "\n"
-	-qemu-system-x86_64 -hda ./bin/os.bin
+# -qemu-system-x86_64 -hda ./bin/os.bin
+	-qemu-system-x86_64 -drive format=raw,file=./bin/os.bin
 
 	@make clean
 
